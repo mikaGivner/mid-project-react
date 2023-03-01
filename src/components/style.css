@@ -1,0 +1,46 @@
+@import url("https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@1,300&family=Work+Sans:wght@100;300;400&display=swap");
+
+:root {
+  --brown: rgb(217, 176, 127);
+  --darkBlue: #113f67;
+  --lightDarkBlue: #38598b;
+  --lightBlue: #a2a8d3;
+  --light: #e7eaf6;
+  --dark: #000;
+  --lightDark: rgba(218, 204, 186, 0.276);
+  /* rgb(72, 57, 38),
+        rgb(157, 126, 88),
+        rgb(217, 176, 127),
+        rgb(218, 204, 186) 
+         background: linear-gradient(125deg, #113f67, #38598b, #a2a8d3, #e7eaf6);
+        background: linear-gradient(0deg, #8f8787, #ebcbae, #f9f9f9, #a6e4e7);
+          background: rgba(218, 204, 186, 0.276);*/
+}
+
+h1 {
+  color: var(--lightDarkBlue);
+  line-height: 2rem;
+  font-family: "Shantell Sans", cursive;
+  font-size: 180%;
+}
+
+.openingAnimation {
+  animation-name: slide-in;
+  animation-duration: 2s;
+  animation-fill-mode: forwards; /* Keeps the box in the final position after the animation ends */
+  animation-timing-function: ease;
+}
+@keyframes slide-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (min-width: 700px) {
+  h1 {
+    font-size: 3rem;
+    line-height: 3.6rem;
+  }
+}
