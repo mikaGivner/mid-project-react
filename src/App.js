@@ -1,11 +1,21 @@
-import { useState, useEffect } from "react";
 // import axios from "axios";
-// import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // import styled from "styled-components";
 
+import { useState, useEffect } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import LogIn from "./components/LogIn";
 import { Submit } from "./style";
+import { Link } from "react-router-dom";
+import Home from "./components/Home";
+import FavouritesPlaces from "./components/FavouritesPlaces";
 function App() {
+  const router = createBrowserRouter(
+    [
+      { path: "/", element: <Home /> },
+      { path: "/Favourites", element: <FavouritesPlaces /> },
+    ],
+    <require to="/" />
+  );
   const [isLogOut, setIsLogOut] = useState(false);
 
   const isLogIn = localStorage.getItem("logIn");
@@ -14,6 +24,7 @@ function App() {
       setIsLogOut(true);
     } else setIsLogOut(false);
   }, [isLogOut, isLogIn]);
+
   const logOut = () => {
     localStorage.setItem("logIn", ``);
     setIsLogOut(false);
@@ -23,7 +34,13 @@ function App() {
       {!isLogOut ? (
         <LogIn setIsLogOut={setIsLogOut} />
       ) : (
-        <Submit onClick={logOut}>LogOut</Submit>
+        <div>
+          <RouterProvider router={router}></RouterProvider>
+          <Submit onClick={logOut}>LogOut</Submit>
+
+          {/* <Link to="/"> */}
+          {/* </Link> */}
+        </div>
       )}
     </div>
   );

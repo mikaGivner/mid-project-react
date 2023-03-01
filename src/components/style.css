@@ -14,7 +14,8 @@
         rgb(218, 204, 186) 
          background: linear-gradient(125deg, #113f67, #38598b, #a2a8d3, #e7eaf6);
         background: linear-gradient(0deg, #8f8787, #ebcbae, #f9f9f9, #a6e4e7);
-          background: rgba(218, 204, 186, 0.276);*/
+          background: rgba(218, 204, 186, 0.276);
+          colors ideas*/
 }
 
 h1 {
@@ -29,6 +30,34 @@ h1 {
   animation-duration: 2s;
   animation-fill-mode: forwards; /* Keeps the box in the final position after the animation ends */
   animation-timing-function: ease;
+}
+
+li {
+  list-style: none;
+  margin: 2rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+}
+.link {
+  text-decoration: none;
+  color: var(--darkBlue);
+  font-family: "Work Sans", sans-serif;
+  font-size: 2rem;
+}
+li:hover {
+  opacity: 0.7;
+}
+
+.link.active {
+  color: var(--lightBlue);
+}
+.selectInput {
+  height: 2rem;
+  font-family: "Work Sans", sans-serif;
+  cursor: pointer;
+  color: var(--darkBlue);
+  border: none;
+  outline: none;
 }
 @keyframes slide-in {
   from {
