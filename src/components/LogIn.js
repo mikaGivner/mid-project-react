@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
+import { SaveOptionContext } from "./StateContext";
 import {
   Input,
   InputTitle,
@@ -10,9 +11,10 @@ import styled from "styled-components";
 import "./style.css";
 import Users from "./Data";
 
-export default function LogIn({ setIsLogOut }) {
+export default function LogIn({ setShowLogIn, setIsLogIn }) {
   const [validMessage, setValidMessage] = useState("please enter your details");
-  const [userName, setUserName] = useState("");
+  const { userName, setUserName } = useContext(SaveOptionContext);
+  // const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [nameFocus, setNameFocus] = useState("autoFocus");
   const [passwordFocus, setPasswordFocus] = useState("");
@@ -56,14 +58,22 @@ export default function LogIn({ setIsLogOut }) {
       if (validUser) {
         //if the name exists
         if (validUser.password === password) {
+          setUserName("");
+          setPassword("");
           setValidMessage("please enter your details");
           localStorage.setItem("logIn", `${userName}`);
-          setIsLogOut(true);
+          // localStorage.setItem(`${userName}`, ``);
+          setShowLogIn(false);
+          setIsLogIn("Log Out");
         } else setValidMessage("Incorrect password, try again");
       } else setValidMessage("Incorrect name, try again");
     }
   };
-
+  function Back() {
+    setUserName("");
+    setPassword("");
+    setShowLogIn(false);
+  }
   return (
     <WrapperLogInPage>
       <WrapperForm onSubmit={checkUser} className={openingAnimation}>
@@ -84,6 +94,7 @@ export default function LogIn({ setIsLogOut }) {
           autoFocus={passwordFocus}
         />
         <Submit type="submit">Log In</Submit>
+        <Submit onClick={Back}>Back</Submit>
       </WrapperForm>
     </WrapperLogInPage>
   );

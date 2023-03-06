@@ -1,5 +1,8 @@
 import styled from "styled-components";
 export const WrapperLogInPage = styled.section`
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background: linear-gradient(
@@ -13,4 +16,5 @@ export const WrapperLogInPage = styled.section`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  margin-top: -10rem;
 `;
