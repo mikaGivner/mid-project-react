@@ -32,7 +32,7 @@ export default function Header(props) {
             Favorites
           </NavLink>
         </li>
-        {currentUser.length !== 0 && (
+        {currentUser !== "" && (
           <li>
             <NavLink onClick={closeLearn} className="link" to="/AddPlace">
               Add Places
