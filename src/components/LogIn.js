@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { SaveOptionContext } from "./StateContext";
 import {
   Input,
@@ -12,7 +12,7 @@ import "./style.css";
 import Users from "./Data";
 
 export default function LogIn({ setShowLogIn, setIsLogIn }) {
-  const [validMessage, setValidMessage] = useState("please enter your details");
+  const [validMessage, setValidMessage] = useState("Please enter your details");
   const { userName, setUserName } = useContext(SaveOptionContext);
   // const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +26,7 @@ export default function LogIn({ setShowLogIn, setIsLogIn }) {
     }, 2000);
   }, []);
   const H3 = styled.h3`
-    color: ${validMessage === "please enter your details"
+    color: ${validMessage === "Please enter your details"
       ? "var(--lightDarkBlue)"
       : "red"};
     line-height: 2rem;
@@ -60,7 +60,7 @@ export default function LogIn({ setShowLogIn, setIsLogIn }) {
         if (validUser.password === password) {
           setUserName("");
           setPassword("");
-          setValidMessage("please enter your details");
+          setValidMessage("Please enter your details");
           localStorage.setItem("logIn", `${userName}`);
           // localStorage.setItem(`${userName}`, ``);
           setShowLogIn(false);

@@ -4,7 +4,6 @@ import { Button } from "./Submit";
 import { WrapperForm } from "./WrapperForm";
 import { WrapperLogInPage } from "./WrapperLogInPage";
 import { Navbar } from "./Navbar";
-import { FavouritesStyle } from "./FavouritesStyle";
 import { HomeStyle } from "./HomeStyle";
 import { DisplayRow } from "./DisplayRow";
 import { PlaceImg } from "./PlaceImg";
@@ -12,9 +11,7 @@ import { Li } from "./Li";
 import { Card } from "./CardStyle";
 import { WrapperPlaces } from "./WrapperPlaces";
 import { Title } from "./Title";
-
 import { DisplayOption } from "./DisplayOptionPlace";
-import { WrapperLearn } from "./WrapperLearn";
 import { InsideLearn } from "./InsideLearn";
 import { Logo } from "./Logo";
 import { HomeHead } from "./HomeHead";
@@ -41,7 +38,6 @@ export {
   TryAgain,
   HomeHead,
   Logo,
-  WrapperLearn,
   InsideLearn,
   DisplayOption,
   Input,
@@ -50,7 +46,6 @@ export {
   WrapperForm,
   WrapperLogInPage,
   Navbar,
-  FavouritesStyle,
   HomeStyle,
   DisplayRow,
   PlaceImg,

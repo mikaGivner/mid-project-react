@@ -1,8 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import { SaveOptionContext } from "./StateContext";
 import LearnMore from "./LearnMorePage";
 import CardPlace from "./Card-place";
-import { SaveOptionContext } from "./StateContext";
+import "./style.css";
+import "./SpinnerStyle.css";
+import { Button } from "../style/Submit";
 import {
   TryAgain,
   SearchNav,
@@ -13,11 +16,9 @@ import {
   SearchMenu,
   SelectStyle,
 } from "../style";
-import "./style.css";
-import "./SpinnerStyle.css";
-import { Button } from "../style/Submit";
 
 export default function Home() {
+  let counterPlaces = 0;
   const {
     isLearn,
     setIsLearn,
@@ -28,13 +29,11 @@ export default function Home() {
     namePlace,
     setNamePlace,
   } = useContext(SaveOptionContext);
-  let counterPlaces = 0;
 
   const [event, setEvent] = useState("");
   const [area, setArea] = useState("");
   const [currentEvent, setCurrentEvent] = useState("");
   const [currentArea, setCurrentArea] = useState("");
-
   const [message, setMessage] = useState("");
   const newEvent = (e) => {
     setEvent(e.target.value);
@@ -42,12 +41,12 @@ export default function Home() {
   const newArea = (e) => {
     setArea(e.target.value);
   };
-
   const [showData, setShowData] = useState([]);
   const [isError, setIsError] = useState(false);
   const [searchNow, setSearchNow] = useState(false);
   const [hasData, setHasData] = useState(false);
-
+  const [randerArr, setRanderArr] = useState("");
+  const currentUser = localStorage.getItem("logIn");
   const MyData = async (e) => {
     e.preventDefault();
     setIsLearn(false);
@@ -79,8 +78,7 @@ export default function Home() {
       }
     }
   };
-  const currentUser = localStorage.getItem("logIn");
-  const [randerArr, setRanderArr] = useState("");
+
   async function SaveItem(e) {
     const res = await axios.get(
       `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company`
@@ -98,6 +96,25 @@ export default function Home() {
       setRanderArr(e.target.id);
     }
   }
+
+  async function Learn(e) {
+    setMessage("");
+    setIsLearn(true);
+    setLearnAbout("");
+    setNamePlace("");
+    setIsLoading(true);
+    const ress = await axios.get(
+      `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company/${e.target.id}`
+    );
+    console.log(`company ${e.target.id}:`, ress.data);
+    setLearnAbout(ress.data.about);
+    setNamePlace(ress.data.name);
+    setIsLoading(false);
+    console.log(e.target.id);
+  }
+
+  function deleteSave() {}
+
   useEffect(() => {
     const fetchHome = async () => {
       try {
@@ -118,23 +135,6 @@ export default function Home() {
     fetchHome();
   }, [randerArr]);
 
-  async function Learn(e) {
-    setMessage("");
-    setIsLearn(true);
-    setLearnAbout("");
-    setNamePlace("");
-    setIsLoading(true);
-    const ress = await axios.get(
-      `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company/${e.target.id}`
-    );
-    console.log(`company ${e.target.id}:`, ress.data);
-    setLearnAbout(ress.data.about);
-    setNamePlace(ress.data.name);
-    setIsLoading(false);
-    console.log(e.target.id);
-  }
-
-  function deleteSave() {}
   return (
     <HomeStyle>
       {/* {currentUser.length !== 0 && <div>hey {currentUser}</div>} */}
@@ -158,7 +158,7 @@ export default function Home() {
           </SelectStyle>
           <SelectStyle value={area} name="area" onChange={newArea}>
             <option hidden selected>
-              Select area
+              Select region
             </option>
             <option value="north">North</option>
             <option value="center">Center</option>

@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { Logo } from "../style";
 import { NavLink } from "react-router-dom";
 import "./style.css";
@@ -29,17 +29,17 @@ export default function Header(props) {
         </li>
         <li>
           <NavLink onClick={closeLearn} className="link" to="/Favourites">
-            Favourites
+            Favorites
           </NavLink>
         </li>
         {currentUser.length !== 0 && (
           <li>
             <NavLink onClick={closeLearn} className="link" to="/AddPlace">
-              Add Place
+              Add Places
             </NavLink>
           </li>
         )}
-        <li className="link" onClick={props.showLog}>
+        <li className="link log" onClick={props.showLog}>
           {props.isLogIn}
         </li>
         {props.showLogIn && (

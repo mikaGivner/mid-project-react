@@ -1,28 +1,30 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { SaveOptionContext } from "./StateContext";
-
-import { PlaceContent, Card, Title, DisplayOption } from "../style";
+import { Button } from "../style/Submit";
+import { Card, Title, DisplayOption } from "../style";
 
 export default function CardPlace(props) {
-  const { setIsLearn, setDeletFeatuer, deletFeatuer } =
-    useContext(SaveOptionContext);
+  const { deletFeatuer } = useContext(SaveOptionContext);
+  const currentUserName = localStorage.getItem("logIn");
   return (
     <Card background={props.background}>
       <Title> {props.title}</Title>
       <DisplayOption>
         {deletFeatuer === "To delete" ? (
-          <PlaceContent id={props.id} onClick={props.LearnMore}>
+          <Button id={props.id} onClick={props.LearnMore}>
             learn more
-          </PlaceContent>
+          </Button>
         ) : (
-          <PlaceContent id={props.id} onClick={props.deleteSave}>
+          <Button id={props.id} onClick={props.deleteSave}>
             delete
-          </PlaceContent>
+          </Button>
         )}
 
-        <PlaceContent id={props.id} onClick={props.SaveItem}>
-          {props.saveOption}
-        </PlaceContent>
+        {!props.saveOption && currentUserName.length !== 0 && (
+          <Button id={props.id} onClick={props.SaveItem}>
+            {props.isSaved ? "Saved!" : "Save"}
+          </Button>
+        )}
       </DisplayOption>
     </Card>
   );

@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-export const Submit = styled.button`
-  width: 15rem;
+export const Button = styled.button`
+  width: 10rem;
   height: 2rem;
   color: var(--light);
-  background: linear-gradient(125deg, var(--lightDarkBlue), var(--darkBlue));
-  margin: 2rem;
+  background: linear-gradient(125deg, darkgray, gray);
+  margin: 0.5rem 2rem;
   border: none;
   cursor: pointer;
   &:hover {
-    opacity: 0.6;
+    opacity: 0.8;
   }
 `;

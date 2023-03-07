@@ -1,17 +1,21 @@
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import "./style.css";
 import { SaveOptionContext } from "./StateContext";
-import LogIn from "./LogIn";
+import "./style.css";
 import CardPlace from "./Card-place";
-import { DisplayRow, FavouritesStyle, Submit, TryAgain } from "../style";
 import "./SpinnerStyle.css";
 import LearnMore from "./LearnMorePage";
+import {
+  WrapperPlaces,
+  Submit,
+  TryAgain,
+  SearchNav,
+  HomeStyle,
+} from "../style";
 export default function FavouritesPlaces() {
   let counterFavorites = 0;
   const {
     saveOptionn,
-    showLogIn,
     setShowLogIn,
     isLoading,
     setIsLoading,
@@ -25,11 +29,10 @@ export default function FavouritesPlaces() {
     setDeletFeatuer,
   } = useContext(SaveOptionContext);
   const currentUser = localStorage.getItem("logIn");
-  const [hasUser, setHasUser] = useState("you have to logIn");
+  const [hasUser, setHasUser] = useState("You have to logIn");
   const [arrayData, setArrayData] = useState([]);
-  // const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [empty, setEmpty] = useState("");
+  const [rendSave, setRendSave] = useState("");
 
   async function Learn(e) {
     setIsLearn(true);
@@ -39,7 +42,7 @@ export default function FavouritesPlaces() {
     const ress = await axios.get(
       `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company/${e.target.id}`
     );
-    console.log(`company ${e.target.id}:`, ress.data);
+
     setLearnAbout(ress.data.about);
     setNamePlace(ress.data.name);
     setIsLoading(false);
@@ -51,13 +54,14 @@ export default function FavouritesPlaces() {
     setShowLogIn(true);
   }
   function deleteActive(e) {
+    setIsLearn(false);
     if (e.target.innerText === "To delete") {
       setDeletFeatuer("Stop delete");
     } else {
       setDeletFeatuer("To delete");
     }
   }
-  const [rendSave, setRendSave] = useState("");
+
   async function deleteSave(e) {
     if (deletFeatuer === "Stop delete") {
       const arrData = await axios.get(
@@ -65,17 +69,16 @@ export default function FavouritesPlaces() {
       );
       const arrayToDeleteFrom = arrData.data[e.target.id - 1].usersSave;
       //arrayToDeleteFrom give the array that we need to remote name from
-      console.log(arrayToDeleteFrom);
       const indexToRemove = arrayToDeleteFrom.indexOf(currentUser);
       if (indexToRemove !== -1) {
         arrayToDeleteFrom.splice(indexToRemove, 1);
       }
-      const deleteUserSave = await axios.put(
+      await axios.put(
         `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company/${e.target.id}`,
         { usersSave: arrayToDeleteFrom }
       );
     }
-    setRendSave("1");
+    setRendSave(e.target.id);
   }
   useEffect(() => {
     const fetchFavorites = async () => {
@@ -99,13 +102,12 @@ export default function FavouritesPlaces() {
       setHasUser("");
       fetchFavorites();
     } else {
-      setHasUser("you have to logIn");
+      setHasUser("You have to logIn");
     }
   }, [saveOptionn, rendSave]);
   return (
-    <div>
-      {" "}
-      <FavouritesStyle>
+    <HomeStyle>
+      <SearchNav>
         {isLearn && <LearnMore about={learnAbout} placeTitle={namePlace} />}
         {hasUser !== "" ? (
           <>
@@ -114,9 +116,8 @@ export default function FavouritesPlaces() {
           </>
         ) : (
           <div>
-            {/* <Submit onClick={giveData}>Show my favorites</Submit> */}
             <div>
-              {isError && <div>page not found</div>}
+              {isError && <div>Page not found</div>}
 
               {isLoading && !isError && (
                 <div className="lds-ellipsis">
@@ -126,7 +127,7 @@ export default function FavouritesPlaces() {
                   <div></div>
                 </div>
               )}
-              <DisplayRow>
+              <WrapperPlaces>
                 {!isLoading &&
                   currentUser.length !== 0 &&
                   arrayData.map((company) => {
@@ -136,7 +137,7 @@ export default function FavouritesPlaces() {
                           key={company.id}
                           id={company.id}
                           title={company.name}
-                          saveOption={empty}
+                          saveOption={true}
                           SaveItem={F}
                           background={company.img}
                           LearnMore={Learn}
@@ -147,20 +148,20 @@ export default function FavouritesPlaces() {
                       );
                     }
                   })}
-              </DisplayRow>
+              </WrapperPlaces>
             </div>
           </div>
         )}
         {counterFavorites === 0 && !hasUser && !isLoading && (
-          <TryAgain>there are no favorites places</TryAgain>
+          <TryAgain>There are no favorites places</TryAgain>
         )}
-        {counterFavorites !== 0 &&
-          !hasUser &&
-          !isLoading &&
-          currentUser.length !== 0 && (
-            <Submit onClick={deleteActive}>{deletFeatuer}</Submit>
-          )}
-      </FavouritesStyle>
-    </div>
+      </SearchNav>
+      {counterFavorites !== 0 &&
+        !hasUser &&
+        !isLoading &&
+        currentUser.length !== 0 && (
+          <Submit onClick={deleteActive}>{deletFeatuer}</Submit>
+        )}
+    </HomeStyle>
   );
 }
