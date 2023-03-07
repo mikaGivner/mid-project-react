@@ -21,7 +21,7 @@ export default function RootLayout() {
     }
   }
   useEffect(() => {
-    if (nameUser.length !== 0) {
+    if (nameUser !== "") {
       setSaveOptionn("Save");
       setIsLogIn("Log Out");
     } else {
