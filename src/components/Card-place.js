@@ -20,7 +20,7 @@ export default function CardPlace(props) {
           </Button>
         )}
 
-        {!props.saveOption && currentUserName.length !== 0 && (
+        {!props.saveOption && currentUserName !== "" && (
           <Button id={props.id} onClick={props.SaveItem}>
             {props.isSaved ? "Saved!" : "Save"}
           </Button>

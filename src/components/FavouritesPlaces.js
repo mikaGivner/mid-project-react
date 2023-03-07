@@ -51,7 +51,7 @@ export default function FavouritesPlaces() {
       }
     };
 
-    if (currentUser.length !== 0) {
+    if (currentUser !== "") {
       setHasUser("");
       fetchFavorites();
     } else {
@@ -129,7 +129,7 @@ export default function FavouritesPlaces() {
               )}
               <WrapperPlaces>
                 {!isLoading &&
-                  currentUser.length !== 0 &&
+                  currentUser !== "" &&
                   arrayData.map((company) => {
                     if (company.usersSave.includes(currentUser)) {
                       return (
@@ -159,7 +159,7 @@ export default function FavouritesPlaces() {
       {counterFavorites !== 0 &&
         !hasUser &&
         !isLoading &&
-        currentUser.length !== 0 && (
+        currentUser !== "" && (
           <Submit onClick={deleteActive}>{deletFeatuer}</Submit>
         )}
     </HomeStyle>
