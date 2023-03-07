@@ -33,7 +33,31 @@ export default function FavouritesPlaces() {
   const [arrayData, setArrayData] = useState([]);
   const [isError, setIsError] = useState(false);
   const [rendSave, setRendSave] = useState("");
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        setIsLoading(true);
+        const showRes = await axios.get(
+          "https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company"
+        );
 
+        setArrayData(showRes.data);
+
+        setIsLoading(false);
+        setIsError(false);
+      } catch (err) {
+        console.log("the page is not found", err);
+        setIsError(true);
+      }
+    };
+
+    if (currentUser.length !== 0) {
+      setHasUser("");
+      fetchFavorites();
+    } else {
+      setHasUser("You have to logIn");
+    }
+  }, [saveOptionn, rendSave, currentUser.length, setIsLoading]);
   async function Learn(e) {
     setIsLearn(true);
     setLearnAbout("");
@@ -80,31 +104,7 @@ export default function FavouritesPlaces() {
     }
     setRendSave(e.target.id);
   }
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      try {
-        setIsLoading(true);
-        const showRes = await axios.get(
-          "https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company"
-        );
 
-        setArrayData(showRes.data);
-
-        setIsLoading(false);
-        setIsError(false);
-      } catch (err) {
-        console.log("the page is not found", err);
-        setIsError(true);
-      }
-    };
-
-    if (currentUser.length !== 0) {
-      setHasUser("");
-      fetchFavorites();
-    } else {
-      setHasUser("You have to logIn");
-    }
-  }, [saveOptionn, rendSave]);
   return (
     <HomeStyle>
       <SearchNav>
@@ -146,7 +146,7 @@ export default function FavouritesPlaces() {
                           {counterFavorites++}
                         </CardPlace>
                       );
-                    }
+                    } else return <></>;
                   })}
               </WrapperPlaces>
             </div>

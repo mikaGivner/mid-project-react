@@ -46,6 +46,7 @@ export default function Home() {
   const [searchNow, setSearchNow] = useState(false);
   const [hasData, setHasData] = useState(false);
   const [randerArr, setRanderArr] = useState("");
+
   const currentUser = localStorage.getItem("logIn");
   const MyData = async (e) => {
     e.preventDefault();
@@ -120,10 +121,10 @@ export default function Home() {
       try {
         setIsLoading(true);
 
-        const newFeach = await axios.get(
+        const newFetch = await axios.get(
           "https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company"
         );
-        setShowData(newFeach.data);
+        setShowData(newFetch.data);
 
         setIsLoading(false);
         setIsError(false);
@@ -133,7 +134,7 @@ export default function Home() {
       }
     };
     fetchHome();
-  }, [randerArr]);
+  }, [randerArr, setIsLoading]);
 
   return (
     <HomeStyle>
@@ -207,7 +208,7 @@ export default function Home() {
                       {counterPlaces++}
                     </CardPlace>
                   );
-                }
+                } else return <></>;
               })}
 
               {counterPlaces === 0 && searchNow && (
