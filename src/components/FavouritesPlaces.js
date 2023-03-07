@@ -13,7 +13,6 @@ import {
   HomeStyle,
 } from "../style";
 export default function FavouritesPlaces() {
-  let counterFavorites = 0;
   const {
     saveOptionn,
     setShowLogIn,
@@ -28,6 +27,7 @@ export default function FavouritesPlaces() {
     deletFeatuer,
     setDeletFeatuer,
   } = useContext(SaveOptionContext);
+  let counterFavorites = 0;
   const currentUser = localStorage.getItem("logIn");
   const [hasUser, setHasUser] = useState("You have to logIn");
   const [arrayData, setArrayData] = useState([]);
