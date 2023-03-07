@@ -8,7 +8,6 @@ import {
   SearchNav,
   HomeStyle,
   Message,
-  Submit,
   WrapperPlaces,
   HomeTitle,
   SearchMenu,
@@ -20,7 +19,6 @@ import { Button } from "../style/Submit";
 
 export default function Home() {
   const {
-    saveOptionn,
     isLearn,
     setIsLearn,
     isLoading,
@@ -31,7 +29,7 @@ export default function Home() {
     setNamePlace,
   } = useContext(SaveOptionContext);
   let counterPlaces = 0;
-  // const [isLearn, setIsLearn] = useState(false);
+
   const [event, setEvent] = useState("");
   const [area, setArea] = useState("");
   const [currentEvent, setCurrentEvent] = useState("");
@@ -52,6 +50,7 @@ export default function Home() {
 
   const MyData = async (e) => {
     e.preventDefault();
+    setIsLearn(false);
     setMessage("");
     if (event !== "" && area !== "") {
       setHasData(true);
@@ -70,7 +69,6 @@ export default function Home() {
         const showRes = await axios.get(
           "https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company"
         );
-
         setShowData(showRes.data);
 
         setIsLoading(false);
@@ -82,6 +80,7 @@ export default function Home() {
     }
   };
   const currentUser = localStorage.getItem("logIn");
+  const [randerArr, setRanderArr] = useState("");
   async function SaveItem(e) {
     const res = await axios.get(
       `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company`
@@ -92,14 +91,35 @@ export default function Home() {
         ...res.data[e.target.id - 1].usersSave,
         currentUser,
       ];
-      const response = await axios.put(
+      await axios.put(
         `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company/${e.target.id}`,
         { usersSave: updatedUsersSave }
       );
+      setRanderArr(e.target.id);
     }
   }
+  useEffect(() => {
+    const fetchHome = async () => {
+      try {
+        setIsLoading(true);
+
+        const newFeach = await axios.get(
+          "https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company"
+        );
+        setShowData(newFeach.data);
+
+        setIsLoading(false);
+        setIsError(false);
+      } catch (err) {
+        console.log("the page is not found", err);
+        setIsError(true);
+      }
+    };
+    fetchHome();
+  }, [randerArr]);
 
   async function Learn(e) {
+    setMessage("");
     setIsLearn(true);
     setLearnAbout("");
     setNamePlace("");
@@ -117,7 +137,6 @@ export default function Home() {
   function deleteSave() {}
   return (
     <HomeStyle>
-      {isLearn && <LearnMore about={learnAbout} placeTitle={namePlace} />}
       {/* {currentUser.length !== 0 && <div>hey {currentUser}</div>} */}
 
       <SearchNav>
@@ -151,6 +170,9 @@ export default function Home() {
       </SearchNav>
       {hasData && (
         <SearchNav>
+          {!isLoading && isLearn && (
+            <LearnMore about={learnAbout} placeTitle={namePlace} />
+          )}
           {isError && <TryAgain>page not found</TryAgain>}
 
           {isLoading && !isError && (
@@ -171,10 +193,12 @@ export default function Home() {
                 ) {
                   return (
                     <CardPlace
+                      isSaved={company.usersSave.includes(currentUser)}
                       key={company.id}
                       id={company.id}
                       title={company.name}
-                      saveOption={saveOptionn}
+                      saveOption={false}
+                      // saveOption={saveOptionn}
                       SaveItem={SaveItem}
                       background={company.img}
                       LearnMore={Learn}
