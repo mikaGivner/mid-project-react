@@ -108,7 +108,9 @@ export default function FavouritesPlaces() {
   return (
     <HomeStyle>
       <SearchNav>
-        {isLearn && <LearnMore about={learnAbout} placeTitle={namePlace} />}
+        {isLearn && !isLoading && (
+          <LearnMore about={learnAbout} placeTitle={namePlace} />
+        )}
         {hasUser !== "" ? (
           <>
             <TryAgain>{hasUser}</TryAgain>
