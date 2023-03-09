@@ -6,7 +6,7 @@ import Home from "./components/Home";
 import FavouritesPlaces from "./components/FavouritesPlaces";
 import AddPlace from "./components/AddPlace";
 import RootLayout from "./components/Root";
-
+import AboutPage from "./components/AboutPage";
 function App() {
   const router = createBrowserRouter(
     [
@@ -15,6 +15,7 @@ function App() {
         element: <RootLayout />,
         children: [
           { path: "/", element: <Home /> },
+          { path: "/AboutPage", element: <AboutPage /> },
           { path: "/Favourites", element: <FavouritesPlaces /> },
           { path: "/AddPlace", element: <AddPlace /> },
         ],

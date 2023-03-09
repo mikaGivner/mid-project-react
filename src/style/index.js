@@ -18,21 +18,33 @@ import { HomeHead } from "./HomeHead";
 import { TryAgain } from "./TryAgain";
 import { Theabout } from "./About";
 import { ContentLearn } from "./contentLearn";
-import { WrapperAdd } from "./WrapperAdd";
 import { AddForm } from "./AddForm";
 import { SearchNav } from "./SearchNav";
-import { HomeTitle } from "./HomeTitle";
 import { SearchMenu } from "./SearchMenu";
 import { SelectStyle } from "./SelectStyle";
 import { Message } from "./MessageStyle";
+import { AddInput } from "./AddInput";
+import { AddTitles } from "./AddTitles";
+import { AddSelectStyle } from "./AddSelectStyle";
+import { HomeTitle } from "./HomeTitle";
+import { AboutTitle } from "./AboutTitle";
+import { AboutContent } from "./AboutContent";
+import { SignUpInput } from "./SignUpInput";
+import { ClickSign } from "./ClickSign";
 export {
+  ClickSign,
+  SignUpInput,
+  AboutContent,
+  AboutTitle,
+  HomeTitle,
+  AddSelectStyle,
+  AddTitles,
+  AddInput,
   Message,
   SelectStyle,
   SearchMenu,
-  HomeTitle,
   SearchNav,
   AddForm,
-  WrapperAdd,
   ContentLearn,
   Theabout,
   TryAgain,

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const SearchNav = styled.div`
   margin: 1rem;
-  background: gray;
+  background: linear-gradient(125deg, darkgray, gray);
   border-radius: 1rem;
   min-height: 15rem;
   width: 90vw;

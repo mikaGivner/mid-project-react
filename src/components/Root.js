@@ -1,24 +1,37 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { SaveOptionContext } from "./StateContext";
 import { Outlet } from "react-router-dom";
 import Header from "./Header";
 
 export default function RootLayout() {
   const nameUser = localStorage.getItem("logIn");
-  const { showLogIn, setShowLogIn, saveOptionn, setSaveOptionn, setIsLearn } =
-    useContext(SaveOptionContext);
+  const {
+    showLogIn,
+    setShowLogIn,
+    saveOptionn,
+    setSaveOptionn,
+    setIsLearn,
+    showSignUp,
+    setShowSignUp,
+  } = useContext(SaveOptionContext);
   //   const [saveOption, setSaveOption] = useState("");
   const [isLogIn, setIsLogIn] = useState("Log In");
-  function showLog(e) {
-    setIsLearn(false);
-    if (e.target.innerText === "Log In") {
-      setShowLogIn(true);
-    } else {
-      localStorage.setItem("logIn", ``);
-      setIsLogIn("Log In");
-      setSaveOptionn("");
-      setShowLogIn(false);
-    }
+  const showLog = useCallback(
+    (e) => {
+      setIsLearn(false);
+      if (e.target.innerText === "Log In") {
+        setShowLogIn(true);
+      } else {
+        localStorage.setItem("logIn", ``);
+        setIsLogIn("Log In");
+        setSaveOptionn("");
+        setShowLogIn(false);
+      }
+    },
+    [setIsLearn, setSaveOptionn, setShowLogIn]
+  );
+  function ShowSign() {
+    setShowSignUp(true);
   }
   useEffect(() => {
     if (nameUser !== "") {
@@ -27,7 +40,7 @@ export default function RootLayout() {
     } else {
       setSaveOptionn("");
     }
-  }, [saveOptionn, isLogIn, nameUser, showLog]);
+  }, [saveOptionn, setSaveOptionn, isLogIn, nameUser, showLog]);
   return (
     <>
       <Header
@@ -36,6 +49,8 @@ export default function RootLayout() {
         isLogIn={isLogIn}
         setShowLogIn={setShowLogIn}
         setIsLogIn={setIsLogIn}
+        showSign={ShowSign}
+        showSignUp={showSignUp}
       />
       <Outlet />
     </>

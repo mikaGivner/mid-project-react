@@ -10,7 +10,9 @@ export default function LearnMore({ about, placeTitle }) {
 
   return (
     <InsideLearn>
-      <Theabout>{placeTitle}</Theabout>
+      <Theabout>
+        <h1 style={{ color: "#fff" }}>{placeTitle}</h1>
+      </Theabout>
       <ContentLearn>{about}</ContentLearn>
       <Submit onClick={CloseLearn}>back</Submit>
     </InsideLearn>

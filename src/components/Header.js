@@ -5,6 +5,7 @@ import "./style.css";
 import { Navbar } from "../style";
 import LogIn from "./LogIn";
 import { SaveOptionContext } from "./StateContext";
+import SignUpPage from "./SignUpPage";
 export default function Header(props) {
   const { setIsLearn, setDeletFeatuer } = useContext(SaveOptionContext);
   function closeLearn() {
@@ -28,6 +29,11 @@ export default function Header(props) {
           </NavLink>
         </li>
         <li>
+          <NavLink onClick={closeLearn} className="link" to="/AboutPage">
+            About
+          </NavLink>
+        </li>
+        <li>
           <NavLink onClick={closeLearn} className="link" to="/Favourites">
             Favorites
           </NavLink>
@@ -42,13 +48,19 @@ export default function Header(props) {
         <li className="link log" onClick={props.showLog}>
           {props.isLogIn}
         </li>
-        {props.showLogIn && (
-          <LogIn
-            setShowLogIn={props.setShowLogIn}
-            setIsLogIn={props.setIsLogIn}
-          />
+        {props.isLogIn === "Log In" && (
+          <li className="link" onClick={props.showSign}>
+            Sign up
+          </li>
         )}
       </Navbar>
+      {props.showLogIn && (
+        <LogIn
+          setShowLogIn={props.setShowLogIn}
+          setIsLogIn={props.setIsLogIn}
+        />
+      )}
+      {props.showSignUp && <SignUpPage />}
     </>
   );
 }

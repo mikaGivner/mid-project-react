@@ -1,11 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Lobster&family=Shantell+Sans:ital,wght@1,300&family=Tilt+Prism&family=Work+Sans:wght@100;300;400&display=swap");
 .wrapperRadio {
-  width: 20rem;
+  max-width: 30rem;
   display: flex;
   flex-wrap: wrap;
 }
-.radioInput {
-  margin: 0.5rem 0.1rem 0.5rem 1rem;
+textarea {
+  min-height: 10rem;
+  min-width: 20rem;
+  max-width: 40rem;
+  outline: none;
+  border: none;
+}
+.radioTitle {
+  margin: 0.5rem 1.5rem 2rem 0.2rem;
+  color: rgb(217, 176, 127);
+  font-family: "Work Sans", sans-serif;
 }
 :root {
   --brown: rgb(217, 176, 127);
@@ -38,7 +47,11 @@ h1 {
   font-family: "Shantell Sans", cursive;
   font-size: 180%;
 }
-
+p {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-family: "Work Sans", sans-serif;
+}
 li {
   list-style: none;
   margin: 1rem;

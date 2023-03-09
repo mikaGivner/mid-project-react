@@ -1,20 +1,20 @@
 import { useState, useEffect, useContext } from "react";
+import axios from "axios";
 import { SaveOptionContext } from "./StateContext";
 import {
+  ClickSign,
   Input,
-  InputTitle,
   Submit,
   WrapperForm,
   WrapperLogInPage,
 } from "../style";
 import styled from "styled-components";
 import "./style.css";
-import Users from "./Data";
 
 export default function LogIn({ setShowLogIn, setIsLogIn }) {
   const [validMessage, setValidMessage] = useState("Please enter your details");
-  const { userName, setUserName } = useContext(SaveOptionContext);
-  // const [userName, setUserName] = useState("");
+  const { userName, setUserName, setShowSignUp } =
+    useContext(SaveOptionContext);
   const [password, setPassword] = useState("");
   const [nameFocus, setNameFocus] = useState("autoFocus");
   const [passwordFocus, setPasswordFocus] = useState("");
@@ -27,7 +27,7 @@ export default function LogIn({ setShowLogIn, setIsLogIn }) {
   }, []);
   const H3 = styled.h3`
     color: ${validMessage === "Please enter your details"
-      ? "var(--lightDarkBlue)"
+      ? "var(--brown)"
       : "red"};
     line-height: 2rem;
     font-family: "Shantell Sans", cursive;
@@ -48,13 +48,16 @@ export default function LogIn({ setShowLogIn, setIsLogIn }) {
     setPasswordFocus("autoFocus");
     setNameFocus("");
   };
-  const checkUser = (e) => {
+  const checkUser = async (e) => {
     e.preventDefault();
-    console.log(userName, password);
+
     if (userName === "" || password === "") {
       setValidMessage("Please fill all");
     } else {
-      const validUser = Users.find((user) => user.name === userName); //if the name exists in the array, validUser return the obj of this name, otherwise validUser will be null
+      const userAPI = await axios.get(
+        `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/users`
+      );
+      const validUser = userAPI.data.find((user) => user.userName === userName); //if the name exists in the array, validUser return the obj of this name, otherwise validUser will be null
       if (validUser) {
         //if the name exists
         if (validUser.password === password) {
@@ -62,7 +65,7 @@ export default function LogIn({ setShowLogIn, setIsLogIn }) {
           setPassword("");
           setValidMessage("Please enter your details");
           localStorage.setItem("logIn", `${userName}`);
-          // localStorage.setItem(`${userName}`, ``);
+
           setShowLogIn(false);
           setIsLogIn("Log Out");
         } else setValidMessage("Incorrect password, try again");
@@ -74,19 +77,25 @@ export default function LogIn({ setShowLogIn, setIsLogIn }) {
     setPassword("");
     setShowLogIn(false);
   }
+  function toSignUp() {
+    setUserName("");
+    setPassword("");
+    setShowLogIn(false);
+    setShowSignUp(true);
+  }
   return (
     <WrapperLogInPage>
       <WrapperForm onSubmit={checkUser} className={openingAnimation}>
         <h1>Welcome</h1>
         <H3>{validMessage}</H3>
-        <InputTitle>Enter UserName</InputTitle>
+        <p>Enter UserName</p>
         <Input
           type="text"
           value={userName}
           onChange={newUserName}
           autoFocus={nameFocus}
         />
-        <InputTitle>Enter Password</InputTitle>
+        <p>Enter Password</p>
         <Input
           type="password"
           value={password}
@@ -95,6 +104,9 @@ export default function LogIn({ setShowLogIn, setIsLogIn }) {
         />
         <Submit type="submit">Log In</Submit>
         <Submit onClick={Back}>Back</Submit>
+        <ClickSign onClick={toSignUp}>
+          You have no user? Click here and create one
+        </ClickSign>
       </WrapperForm>
     </WrapperLogInPage>
   );

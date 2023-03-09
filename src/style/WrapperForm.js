@@ -8,8 +8,8 @@ export const WrapperForm = styled.form`
   padding: 2%;
   background: rgba(218, 204, 186, 0.276);
   border-radius: 1rem;
-  @media (min-width: 700px) {
-    width: 70vmin;
-    height: 70vmin;
+  @media (min-width: 1000px) {
+    width: 80vmin;
+    height: 80vmin;
   }
 `;

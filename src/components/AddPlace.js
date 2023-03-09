@@ -1,7 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import { WrapperAdd, AddForm, Submit } from "../style";
+import { AddForm, AddSelectStyle, AddInput, AddTitles } from "../style";
 import "./style.css";
+import { Button } from "../style/Submit";
+import CardPlace from "./Card-place";
 export default function AddPlace() {
   const [placeName, setPlaceName] = useState("");
   const [theImg, setTheImg] = useState("");
@@ -21,6 +23,7 @@ export default function AddPlace() {
   const [cheakeWater, setCheakeWater] = useState("");
   const [story, setStory] = useState(false);
   const [cheakeStory, setCheakeStory] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   function newPlace(e) {
     setPlaceName(e.target.value);
@@ -97,46 +100,75 @@ export default function AddPlace() {
       setCheakeStory("");
     }
   }
+
   function AddPlaceAPI(e) {
     e.preventDefault();
-    let arrOgEvents = [];
-    if (hiking) arrOgEvents.push("walking trials");
-    if (camp) arrOgEvents.push("camping");
-    if (picnic) arrOgEvents.push("picnic");
-    if (dog) arrOgEvents.push("dogs friendly");
-    if (bike) arrOgEvents.push("bikes trails");
-    if (water) arrOgEvents.push("water experience");
-    if (story) arrOgEvents.push("for the Story");
+    setErrorMessage("");
+    let pickEvent = true;
 
-    const newPlaceAdd = {
-      name: `${placeName}`,
-      area: `${area}`,
-      events: arrOgEvents,
-      img: `${theImg}`,
-      about: `${placeAbout}`,
-      usersSave: ["1"],
-    };
-    const newObj = axios.post(
-      `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company`,
-      newPlaceAdd
-    );
+    if (!hiking && !camp && !picnic && !dog && !bike && !water && !story) {
+      pickEvent = false;
+    }
+    if (
+      placeName === "" ||
+      theImg === "" ||
+      placeAbout === "" ||
+      area === "" ||
+      placeName.length > 20 ||
+      !pickEvent ||
+      placeAbout < 10 ||
+      placeAbout > 30
+    ) {
+      setErrorMessage(
+        "Please fill all.The name can be till 20 chars. You have to pick at least 1 event. The about need to be at least 10 chars but no longer than 30."
+      );
+    } else {
+      let arrOgEvents = [];
+      if (hiking) arrOgEvents.push("walking trials");
+      if (camp) arrOgEvents.push("camping");
+      if (picnic) arrOgEvents.push("picnic");
+      if (dog) arrOgEvents.push("dogs friendly");
+      if (bike) arrOgEvents.push("bikes trails");
+      if (water) arrOgEvents.push("water experience");
+      if (story) arrOgEvents.push("for the Story");
+
+      const newPlaceAdd = {
+        name: `${placeName}`,
+        area: `${area}`,
+        events: arrOgEvents,
+        img: `${theImg}`,
+        about: `${placeAbout}`,
+        usersSave: ["1"],
+      };
+      axios.post(
+        `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company`,
+        newPlaceAdd
+      );
+    }
   }
   return (
-    <WrapperAdd>
-      <AddForm onSubmit={AddPlaceAPI}>
-        <input
+    <AddForm>
+      <form
+        style={{ display: "flex", flexDirection: "column" }}
+        onSubmit={AddPlaceAPI}
+      >
+        <AddInput
           onChange={newPlace}
           type="text"
-          placeholder="Place Name"
+          placeholder="The name place"
           value={placeName}
+          maxLength={20}
         />
-        <label>area:</label>
-        <select value={area} onChange={newArea}>
+
+        <AddSelectStyle value={area} onChange={newArea}>
+          <option hidden selected>
+            Region:
+          </option>
           <option value="north">north</option>
           <option value="center">center</option>
           <option value="south">south</option>
-        </select>
-        <p>select events to this place:</p>
+        </AddSelectStyle>
+        <AddTitles>select events to this place:</AddTitles>
         <div className="wrapperRadio">
           <label>
             <input
@@ -146,7 +178,7 @@ export default function AddPlace() {
               onChange={changeHiking}
               checked={cheakeHiking}
             />
-            hiking trails
+            <span className="radioTitle">Hiking Trails</span>
           </label>
           <label>
             <input
@@ -156,7 +188,7 @@ export default function AddPlace() {
               onChange={changeCamp}
               checked={cheakeCamp}
             />
-            camping
+            <span className="radioTitle">Camping</span>
           </label>
           <label>
             <input
@@ -166,7 +198,7 @@ export default function AddPlace() {
               onChange={changePicnic}
               checked={cheakePicnic}
             />
-            picnic
+            <span className="radioTitle">Picnic</span>
           </label>
           <label>
             <input
@@ -176,7 +208,7 @@ export default function AddPlace() {
               onChange={changeDog}
               checked={cheakeDog}
             />
-            dogs friendly
+            <span className="radioTitle">Dogs Friendly</span>
           </label>
           <label>
             <input
@@ -186,7 +218,7 @@ export default function AddPlace() {
               onChange={changeBike}
               checked={cheakeBike}
             />
-            bikes trails
+            <span className="radioTitle">Bikes Trails</span>
           </label>
           <label>
             <input
@@ -196,7 +228,7 @@ export default function AddPlace() {
               onChange={changeWater}
               checked={cheakeWater}
             />
-            water experience
+            <span className="radioTitle">Water Experience</span>
           </label>
           <label>
             <input
@@ -206,10 +238,10 @@ export default function AddPlace() {
               onChange={changeStory}
               checked={cheakeStory}
             />
-            for the Story
+            <span className="radioTitle">To the Story</span>
           </label>
         </div>
-        <input
+        <AddInput
           type="text"
           placeholder="Add img"
           onChange={newImg}
@@ -222,8 +254,18 @@ export default function AddPlace() {
           value={placeAbout}
           onChange={newAbout}
         />
-        <Submit type="submit">submit</Submit>
-      </AddForm>
-    </WrapperAdd>
+        <Button type="submit">submit</Button>
+        {errorMessage}
+      </form>
+      <CardPlace
+        background={theImg}
+        title={placeName}
+        LearnMore={() => {}}
+        deleteSave={() => {}}
+        saveOption={true}
+        SaveItem={() => {}}
+        isSaved={false}
+      />
+    </AddForm>
   );
 }

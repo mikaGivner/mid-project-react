@@ -8,7 +8,8 @@ export const Card = styled.div`
   width: 100%;
   height: 20rem;
   margin: 1rem 0;
-  background: ${(props) => `url(${props.background}) no-repeat top center`};
+  background: ${(props) =>
+    `url(${props.background}) no-repeat center center/cover`};
   z-index: 1;
   position: relative;
 
