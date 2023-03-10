@@ -7,6 +7,7 @@ import CardPlace from "./Card-place";
 export default function AddPlace() {
   const [placeName, setPlaceName] = useState("");
   const [theImg, setTheImg] = useState("");
+  const [theImgFile, setTheImgFile] = useState("");
   const [placeAbout, setPlaceAbout] = useState("");
   const [area, setArea] = useState("");
   const [hiking, setHiking] = useState(false);
@@ -24,13 +25,32 @@ export default function AddPlace() {
   const [story, setStory] = useState(false);
   const [cheakeStory, setCheakeStory] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  let space = false;
   function newPlace(e) {
-    setPlaceName(e.target.value);
+    if (e.target.value.slice[-1] === " ") {
+      space = true;
+    }
+    if (placeName.length === 13 || placeName.length === 26) {
+      setPlaceName(`${e.target.value} `);
+    } else {
+      setPlaceName(e.target.value);
+    }
   }
-  function newImg(e) {
-    setTheImg(e.target.value);
+  // function newImgFile(e) {
+  //   setTheImgFile(e.target.value);
+  // }
+  function newImgFile(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = (event) => {
+      const imageDataUrl = event.target.result;
+      setTheImgFile(imageDataUrl);
+    };
+
+    reader.readAsDataURL(file);
   }
+  //////////////////////////
   function newAbout(e) {
     setPlaceAbout(e.target.value);
   }
@@ -103,15 +123,15 @@ export default function AddPlace() {
 
   function AddPlaceAPI(e) {
     e.preventDefault();
+    // console.log(theImgFile);
     setErrorMessage("");
     let pickEvent = true;
-
     if (!hiking && !camp && !picnic && !dog && !bike && !water && !story) {
       pickEvent = false;
     }
     if (
       placeName === "" ||
-      theImg === "" ||
+      theImgFile === "" ||
       placeAbout === "" ||
       area === "" ||
       placeName.length > 20 ||
@@ -120,7 +140,7 @@ export default function AddPlace() {
       placeAbout > 30
     ) {
       setErrorMessage(
-        "Please fill all.The name can be till 20 chars. You have to pick at least 1 event. The about need to be at least 10 chars but no longer than 30."
+        "Please fill all.The name can be till 35 characters. You have to pick at least 1 event. The about need to be at least 10 characters but no longer than 30."
       );
     } else {
       let arrOgEvents = [];
@@ -136,7 +156,7 @@ export default function AddPlace() {
         name: `${placeName}`,
         area: `${area}`,
         events: arrOgEvents,
-        img: `${theImg}`,
+        img: `${theImgFile}`,
         about: `${placeAbout}`,
         usersSave: ["1"],
       };
@@ -157,7 +177,7 @@ export default function AddPlace() {
           type="text"
           placeholder="The name place"
           value={placeName}
-          maxLength={20}
+          maxLength={35}
         />
 
         <AddSelectStyle value={area} onChange={newArea}>
@@ -241,11 +261,17 @@ export default function AddPlace() {
             <span className="radioTitle">To the Story</span>
           </label>
         </div>
-        <AddInput
+        {/* <AddInput
           type="text"
           placeholder="Add img"
           onChange={newImg}
           value={theImg}
+        /> */}
+        <AddInput
+          type="file"
+          accept="image/*"
+          placeholder="Add img"
+          onChange={newImgFile}
         />
         <textarea
           placeholder="About The Place"
@@ -258,7 +284,7 @@ export default function AddPlace() {
         {errorMessage}
       </form>
       <CardPlace
-        background={theImg}
+        background={theImgFile}
         title={placeName}
         LearnMore={() => {}}
         deleteSave={() => {}}

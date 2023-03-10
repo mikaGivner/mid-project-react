@@ -6,6 +6,7 @@ import Header from "./Header";
 export default function RootLayout() {
   const nameUser = localStorage.getItem("logIn");
   const {
+    setOpenHamburger,
     showLogIn,
     setShowLogIn,
     saveOptionn,
@@ -19,6 +20,7 @@ export default function RootLayout() {
   const showLog = useCallback(
     (e) => {
       setIsLearn(false);
+      setOpenHamburger(false);
       if (e.target.innerText === "Log In") {
         setShowLogIn(true);
       } else {
@@ -31,6 +33,7 @@ export default function RootLayout() {
     [setIsLearn, setSaveOptionn, setShowLogIn]
   );
   function ShowSign() {
+    setOpenHamburger(false);
     setShowSignUp(true);
   }
   useEffect(() => {

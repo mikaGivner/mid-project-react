@@ -25,7 +25,6 @@ export default function FavouritesPlaces() {
     namePlace,
     setNamePlace,
     deletFeatuer,
-    setDeletFeatuer,
   } = useContext(SaveOptionContext);
   let counterFavorites = 0;
   const currentUser = localStorage.getItem("logIn");
@@ -57,7 +56,8 @@ export default function FavouritesPlaces() {
     } else {
       setHasUser("You have to logIn");
     }
-  }, [saveOptionn, rendSave, currentUser.length, setIsLoading]);
+  }, [saveOptionn, rendSave, currentUser.length, setIsLoading, currentUser]);
+
   async function Learn(e) {
     setIsLearn(true);
     setLearnAbout("");
@@ -77,14 +77,14 @@ export default function FavouritesPlaces() {
   function GoLogIn() {
     setShowLogIn(true);
   }
-  function deleteActive(e) {
-    setIsLearn(false);
-    if (e.target.innerText === "To delete") {
-      setDeletFeatuer("Stop delete");
-    } else {
-      setDeletFeatuer("To delete");
-    }
-  }
+  // function deleteActive(e) {
+  //   setIsLearn(false);
+  //   if (e.target.innerText === "To delete") {
+  //     setDeletFeatuer("Stop delete");
+  //   } else {
+  //     setDeletFeatuer("To delete");
+  //   }
+  // }
 
   async function deleteSave(e) {
     if (deletFeatuer === "Stop delete") {
@@ -158,12 +158,6 @@ export default function FavouritesPlaces() {
           <TryAgain>There are no favorites places</TryAgain>
         )}
       </SearchNav>
-      {counterFavorites !== 0 &&
-        !hasUser &&
-        !isLoading &&
-        currentUser !== "" && (
-          <Submit onClick={deleteActive}>{deletFeatuer}</Submit>
-        )}
     </HomeStyle>
   );
 }

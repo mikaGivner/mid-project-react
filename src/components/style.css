@@ -11,6 +11,7 @@ textarea {
   outline: none;
   border: none;
 }
+
 .radioTitle {
   margin: 0.5rem 1.5rem 2rem 0.2rem;
   color: rgb(217, 176, 127);
@@ -38,19 +39,21 @@ textarea {
         background: linear-gradient(0deg, #8f8787, #ebcbae, #f9f9f9, #a6e4e7);
         background: rgba(218, 204, 186, 0.276);
         colors ideas*/
-  /* background: #00000062; */
+  background: #0000002f;
 }
 
 h1 {
   color: var(--brown);
-  line-height: 2rem;
+  line-height: 2.5rem;
   font-family: "Shantell Sans", cursive;
   font-size: 180%;
+  text-align: center;
 }
 p {
-  font-size: 1.5rem;
-  line-height: 2rem;
+  font-size: 1rem;
+  line-height: 1.6rem;
   font-family: "Work Sans", sans-serif;
+  text-align: center;
 }
 li {
   list-style: none;
@@ -92,6 +95,7 @@ li {
   animation-fill-mode: forwards; /* Keeps the box in the final position after the animation ends */
   animation-timing-function: ease;
 }
+
 @keyframes slide-in {
   from {
     opacity: 0;
@@ -210,7 +214,11 @@ li {
     font-size: 3rem;
     line-height: 3.6rem;
   }
+  p {
+    font-size: 1.5rem;
+  }
 }
+
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
   text-decoration: none;

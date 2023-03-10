@@ -12,8 +12,11 @@ export function SaveOptionProvider(props) {
   const [learnAbout, setLearnAbout] = useState("");
   const [namePlace, setNamePlace] = useState("");
   const [deletFeatuer, setDeletFeatuer] = useState("To delete");
+  const [openHamburger, setOpenHamburger] = useState(false);
 
   const contextValue = {
+    openHamburger,
+    setOpenHamburger,
     showSignUp,
     setShowSignUp,
     deletFeatuer,

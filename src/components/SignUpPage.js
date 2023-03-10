@@ -3,6 +3,7 @@ import axios from "axios";
 import { SaveOptionContext } from "./StateContext";
 import "./style.css";
 import {
+  InputsForm,
   Submit,
   WrapperForm,
   WrapperLogInPage,
@@ -23,19 +24,22 @@ export default function SignUpPage() {
   const [messageName, setMessageName] = useState("");
   function UpdateUser(e) {
     setCreateName(e.target.value);
+    setAddNewUser("");
   }
   const [createPassword, setCreatePassword] = useState("");
   const [messagePassword, setMessagePassword] = useState("");
   function UpdatePsw(e) {
+    setAddNewUser("");
     setCreatePassword(e.target.value);
   }
   const [createPswVrf, setCreatePswVrf] = useState("");
   const [messagePswVrf, setMessagePswVrf] = useState("");
   function UpdatePswVrf(e) {
+    setAddNewUser("");
     setCreatePswVrf(e.target.value);
   }
   const [addNewUser, setAddNewUser] = useState("");
-  const [createNewUser, setCreateNewUser] = useState(false);
+
   async function checkNewUser(e) {
     e.preventDefault();
     let suitName = false;
@@ -107,11 +111,10 @@ export default function SignUpPage() {
         `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/users`,
         newUser
       );
-      setAddNewUser("Creates new user ");
+      setAddNewUser("New user created ");
       setCreateName("");
       setCreatePassword("");
       setCreatePswVrf("");
-      setCreateNewUser(true);
     }
   }
 
@@ -119,31 +122,34 @@ export default function SignUpPage() {
     <WrapperLogInPage>
       <WrapperForm className="openingAnimation" onSubmit={checkNewUser}>
         <h1>Lets Get Started...</h1>
-        <SignUpInput
-          type="name"
-          placeholder="Choose an userName"
-          value={createName}
-          onChange={UpdateUser}
-        />
-        {messageName}
-        <SignUpInput
-          type="password"
-          placeholder="Choose a password"
-          value={createPassword}
-          onChange={UpdatePsw}
-        />
-        {messagePassword}
-        <SignUpInput
-          type="password"
-          placeholder="Verify password"
-          value={createPswVrf}
-          onChange={UpdatePswVrf}
-        />
-        {messagePswVrf}
-        {addNewUser}
-        <Submit type="submit">Create user</Submit>
-        <Submit onClick={CloseSignUp}>Back</Submit>
-        {createNewUser && <ClickSign onClick={goLog}>Go to log in</ClickSign>}
+        <InputsForm>
+          <SignUpInput
+            type="name"
+            placeholder="Choose an userName"
+            value={createName}
+            onChange={UpdateUser}
+          />
+          {messageName}
+          <SignUpInput
+            type="password"
+            placeholder="Choose a password"
+            value={createPassword}
+            onChange={UpdatePsw}
+          />
+          {messagePassword}
+          <SignUpInput
+            type="password"
+            placeholder="Verify password"
+            value={createPswVrf}
+            onChange={UpdatePswVrf}
+          />
+          {messagePswVrf}
+          {addNewUser}
+          <br></br>
+          <Submit type="submit">Create user</Submit>
+          <Submit onClick={CloseSignUp}>Back</Submit>
+        </InputsForm>
+        <ClickSign onClick={goLog}>Go to log in</ClickSign>
       </WrapperForm>
     </WrapperLogInPage>
   );

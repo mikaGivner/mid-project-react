@@ -31,7 +31,13 @@ import { AboutTitle } from "./AboutTitle";
 import { AboutContent } from "./AboutContent";
 import { SignUpInput } from "./SignUpInput";
 import { ClickSign } from "./ClickSign";
+import { HamburgerNav } from "./HamburgerNav";
+import { OpenHamburgerNav } from "./OpenHamburgerNav";
+import { InputsForm } from "./InputsForm";
 export {
+  InputsForm,
+  OpenHamburgerNav,
+  HamburgerNav,
   ClickSign,
   SignUpInput,
   AboutContent,

@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export const Navbar = styled.ul`
+export const HamburgerNav = styled.ul`
   width: 100vw;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: var(--brown);
   padding: 0;
@@ -13,7 +13,7 @@ export const Navbar = styled.ul`
   left: 0;
   z-index: 100;
 
-  @media (max-width: 600px) {
+  @media (min-width: 600px) {
     display: none;
   }
 `;
