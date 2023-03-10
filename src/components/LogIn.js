@@ -3,7 +3,7 @@ import axios from "axios";
 import { SaveOptionContext } from "./StateContext";
 import {
   ClickSign,
-  Input,
+  SignUpInput,
   Submit,
   WrapperForm,
   WrapperLogInPage,
@@ -88,24 +88,26 @@ export default function LogIn({ setShowLogIn, setIsLogIn }) {
       <WrapperForm onSubmit={checkUser} className={openingAnimation}>
         <h1>Welcome</h1>
         <H3>{validMessage}</H3>
-        <p>Enter UserName</p>
-        <Input
-          type="text"
-          value={userName}
-          onChange={newUserName}
-          autoFocus={nameFocus}
-        />
-        <p>Enter Password</p>
-        <Input
-          type="password"
-          value={password}
-          onChange={newPassword}
-          autoFocus={passwordFocus}
-        />
+        <div>
+          <p>Enter UserName</p>
+          <SignUpInput
+            type="text"
+            value={userName}
+            onChange={newUserName}
+            autoFocus={nameFocus}
+          />
+          <p>Enter Password</p>
+          <SignUpInput
+            type="password"
+            value={password}
+            onChange={newPassword}
+            autoFocus={passwordFocus}
+          />
+        </div>
         <Submit type="submit">Log In</Submit>
         <Submit onClick={Back}>Back</Submit>
         <ClickSign onClick={toSignUp}>
-          You have no user? Click here and create one
+          <p> You have no user? Click here and create one</p>
         </ClickSign>
       </WrapperForm>
     </WrapperLogInPage>
