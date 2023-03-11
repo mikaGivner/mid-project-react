@@ -68,6 +68,11 @@ export default function LogIn({ setShowLogIn, setIsLogIn }) {
 
           setShowLogIn(false);
           setIsLogIn("Log Out");
+          if (validUser.isAdmin) {
+            localStorage.setItem("Admin", true);
+          } else {
+            localStorage.setItem("Admin", ``);
+          }
         } else setValidMessage("Incorrect password, try again");
       } else setValidMessage("Incorrect name, try again");
     }

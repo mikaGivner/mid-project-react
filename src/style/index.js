@@ -34,7 +34,13 @@ import { ClickSign } from "./ClickSign";
 import { HamburgerNav } from "./HamburgerNav";
 import { OpenHamburgerNav } from "./OpenHamburgerNav";
 import { InputsForm } from "./InputsForm";
+import { DeletePage } from "./DeletePage";
+import { PlacesMenu } from "./PlacesMenu";
+import { PlaceTitle } from "./PlaceTitle";
 export {
+  PlaceTitle,
+  PlacesMenu,
+  DeletePage,
   InputsForm,
   OpenHamburgerNav,
   HamburgerNav,

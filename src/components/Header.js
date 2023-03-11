@@ -21,6 +21,8 @@ export default function Header(props) {
     setOpenHamburger(false);
   }
   const currentUser = localStorage.getItem("logIn");
+  const adminUser = localStorage.getItem("Admin");
+
   function OpenBurger() {
     if (!openHamburger) setOpenHamburger(true);
     else {
@@ -60,8 +62,24 @@ export default function Header(props) {
             </NavLink>
           </li>
         )}
-        <li className="link log" onClick={props.showLog}>
-          {props.isLogIn}
+        {adminUser && (
+          <li>
+            <NavLink onClick={closeLearn} className="link" to="/DeletePlaces">
+              Delete places
+            </NavLink>
+          </li>
+        )}
+        {adminUser && (
+          <li>
+            <NavLink onClick={closeLearn} className="link" to="/AddAdmins">
+              Add admins
+            </NavLink>
+          </li>
+        )}
+        <li>
+          <NavLink onClick={props.showLog} className="link log" to="/">
+            {props.isLogIn}
+          </NavLink>
         </li>
         {props.isLogIn === "Log In" && (
           <li className="link" onClick={props.showSign}>
@@ -76,8 +94,10 @@ export default function Header(props) {
             style={{ fontSize: "x-large" }}
           />
         </li>
-        <li className="link log" onClick={props.showLog}>
-          {props.isLogIn}
+        <li>
+          <NavLink onClick={props.showLog} className="link log" to="/">
+            {props.isLogIn}
+          </NavLink>
         </li>
         {props.isLogIn === "Log In" && (
           <li className="link" onClick={props.showSign}>
@@ -114,6 +134,24 @@ export default function Header(props) {
               <li>
                 <NavLink onClick={closeLearn} className="link" to="/AddPlace">
                   Add Places
+                </NavLink>
+              </li>
+            )}
+            {adminUser && (
+              <li>
+                <NavLink
+                  onClick={closeLearn}
+                  className="link"
+                  to="/DeletePlaces"
+                >
+                  Delete places
+                </NavLink>
+              </li>
+            )}
+            {adminUser && (
+              <li>
+                <NavLink onClick={closeLearn} className="link" to="/AddAdmins">
+                  Add admins
                 </NavLink>
               </li>
             )}

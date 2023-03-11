@@ -7,6 +7,8 @@ import FavouritesPlaces from "./components/FavouritesPlaces";
 import AddPlace from "./components/AddPlace";
 import RootLayout from "./components/Root";
 import AboutPage from "./components/AboutPage";
+import DeletePlaces from "./components/DeletePlaces";
+import AddAdmins from "./components/AddAdmins";
 function App() {
   const router = createBrowserRouter(
     [
@@ -18,6 +20,8 @@ function App() {
           { path: "/AboutPage", element: <AboutPage /> },
           { path: "/Favourites", element: <FavouritesPlaces /> },
           { path: "/AddPlace", element: <AddPlace /> },
+          { path: "/DeletePlaces", element: <DeletePlaces /> },
+          { path: "/AddAdmins", element: <AddAdmins /> },
         ],
       },
     ],

@@ -16,6 +16,6 @@ export const SearchNav = styled.div`
     padding: 1rem 0;
   }
   &:hover {
-    cursor: pointer;
+    // cursor: pointer;
   }
 `;

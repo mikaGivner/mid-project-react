@@ -25,12 +25,13 @@ export default function RootLayout() {
         setShowLogIn(true);
       } else {
         localStorage.setItem("logIn", ``);
+        localStorage.setItem("Admin", ``);
         setIsLogIn("Log In");
         setSaveOptionn("");
         setShowLogIn(false);
       }
     },
-    [setIsLearn, setSaveOptionn, setShowLogIn]
+    [setIsLearn, setSaveOptionn, setShowLogIn, setOpenHamburger]
   );
   function ShowSign() {
     setOpenHamburger(false);
