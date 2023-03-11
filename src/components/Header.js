@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Logo } from "../style";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import "./style.css";
 import { Navbar, HamburgerNav, OpenHamburgerNav } from "../style";
 import LogIn from "./LogIn";
@@ -77,9 +77,9 @@ export default function Header(props) {
           </li>
         )}
         <li>
-          <NavLink onClick={props.showLog} className="link log" to="/">
+          <Link onClick={props.showLog} className="link log" to="/">
             {props.isLogIn}
-          </NavLink>
+          </Link>
         </li>
         {props.isLogIn === "Log In" && (
           <li className="link" onClick={props.showSign}>
