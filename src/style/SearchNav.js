@@ -15,7 +15,4 @@ export const SearchNav = styled.div`
   @media (min-width: 800px) {
     padding: 1rem 0;
   }
-  &:hover {
-    // cursor: pointer;
-  }
 `;
