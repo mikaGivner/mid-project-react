@@ -14,6 +14,7 @@ export default function RootLayout() {
     setIsLearn,
     showSignUp,
     setShowSignUp,
+    setUserName,
   } = useContext(SaveOptionContext);
   //   const [saveOption, setSaveOption] = useState("");
   const [isLogIn, setIsLogIn] = useState("Log In");
@@ -21,6 +22,7 @@ export default function RootLayout() {
     (e) => {
       setIsLearn(false);
       setOpenHamburger(false);
+      setUserName("");
       if (e.target.innerText === "Log In") {
         setShowLogIn(true);
       } else {
@@ -31,7 +33,7 @@ export default function RootLayout() {
         setShowLogIn(false);
       }
     },
-    [setIsLearn, setSaveOptionn, setShowLogIn, setOpenHamburger]
+    [setIsLearn, setSaveOptionn, setShowLogIn, setOpenHamburger, setUserName]
   );
   function ShowSign() {
     setOpenHamburger(false);
