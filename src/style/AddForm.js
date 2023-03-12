@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const AddForm = styled.div`
   margin: 1rem 3rem;
-  min-height: 20vrem;
+  min-height: 100vh;
   background: linear-gradient(125deg, gray, darkgray);
   border-radius: 1rem;
   display: flex;

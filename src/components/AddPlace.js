@@ -26,6 +26,7 @@ export default function AddPlace() {
   const [story, setStory] = useState(false);
   const [cheakeStory, setCheakeStory] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [thanks, setThanks] = useState(false);
 
   const [error, setError] = useState(false);
   function newPlace(e) {
@@ -167,6 +168,7 @@ export default function AddPlace() {
           `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company`,
           newPlaceAdd
         );
+        setThanks(true);
       } catch (err) {
         console.log("the image adress is to long", err);
         setGoodImg("This image is not good, please try again");
@@ -175,124 +177,132 @@ export default function AddPlace() {
     }
   }
   return (
-    <AddForm>
-      <form
-        style={{ display: "flex", flexDirection: "column" }}
-        onSubmit={AddPlaceAPI}
-      >
-        <AddInput
-          onChange={newPlace}
-          type="text"
-          placeholder="The name place"
-          value={placeName}
-          maxLength={35}
-        />
+    <>
+      {thanks ? (
+        <AddForm>
+          <p>Thank you!</p>
+        </AddForm>
+      ) : (
+        <AddForm>
+          <form
+            style={{ display: "flex", flexDirection: "column" }}
+            onSubmit={AddPlaceAPI}
+          >
+            <AddInput
+              onChange={newPlace}
+              type="text"
+              placeholder="The name place"
+              value={placeName}
+              maxLength={35}
+            />
 
-        <AddSelectStyle value={area} onChange={newArea}>
-          <option hidden selected>
-            Region:
-          </option>
-          <option value="north">north</option>
-          <option value="center">center</option>
-          <option value="south">south</option>
-        </AddSelectStyle>
-        <AddTitles>select events to this place:</AddTitles>
-        <div className="wrapperRadio">
-          <label>
-            <input
-              className="radioInput"
-              type="radio"
-              name="hiking trails"
-              onChange={changeHiking}
-              checked={cheakeHiking}
-            />
-            <span className="radioTitle">Hiking Trails</span>
-          </label>
-          <label>
-            <input
-              className="radioInput"
-              type="radio"
-              name="camping"
-              onChange={changeCamp}
-              checked={cheakeCamp}
-            />
-            <span className="radioTitle">Camping</span>
-          </label>
-          <label>
-            <input
-              className="radioInput"
-              type="radio"
-              name="picnic"
-              onChange={changePicnic}
-              checked={cheakePicnic}
-            />
-            <span className="radioTitle">Picnic</span>
-          </label>
-          <label>
-            <input
-              className="radioInput"
-              type="radio"
-              name="dogs friendly"
-              onChange={changeDog}
-              checked={cheakeDog}
-            />
-            <span className="radioTitle">Dogs Friendly</span>
-          </label>
-          <label>
-            <input
-              className="radioInput"
-              type="radio"
-              name="bikes trails"
-              onChange={changeBike}
-              checked={cheakeBike}
-            />
-            <span className="radioTitle">Bikes Trails</span>
-          </label>
-          <label>
-            <input
-              className="radioInput"
-              type="radio"
-              name="water experience"
-              onChange={changeWater}
-              checked={cheakeWater}
-            />
-            <span className="radioTitle">Water Experience</span>
-          </label>
-          <label>
-            <input
-              className="radioInput"
-              type="radio"
-              name="for the Story"
-              onChange={changeStory}
-              checked={cheakeStory}
-            />
-            <span className="radioTitle">To the Story</span>
-          </label>
-        </div>
-        {/* <AddInput
+            <AddSelectStyle value={area} onChange={newArea}>
+              <option hidden selected>
+                Region:
+              </option>
+              <option value="north">north</option>
+              <option value="center">center</option>
+              <option value="south">south</option>
+            </AddSelectStyle>
+            <AddTitles>select events to this place:</AddTitles>
+            <div className="wrapperRadio">
+              <label>
+                <input
+                  className="radioInput"
+                  type="radio"
+                  name="hiking trails"
+                  onChange={changeHiking}
+                  checked={cheakeHiking}
+                />
+                <span className="radioTitle">Hiking Trails</span>
+              </label>
+              <label>
+                <input
+                  className="radioInput"
+                  type="radio"
+                  name="camping"
+                  onChange={changeCamp}
+                  checked={cheakeCamp}
+                />
+                <span className="radioTitle">Camping</span>
+              </label>
+              <label>
+                <input
+                  className="radioInput"
+                  type="radio"
+                  name="picnic"
+                  onChange={changePicnic}
+                  checked={cheakePicnic}
+                />
+                <span className="radioTitle">Picnic</span>
+              </label>
+              <label>
+                <input
+                  className="radioInput"
+                  type="radio"
+                  name="dogs friendly"
+                  onChange={changeDog}
+                  checked={cheakeDog}
+                />
+                <span className="radioTitle">Dogs Friendly</span>
+              </label>
+              <label>
+                <input
+                  className="radioInput"
+                  type="radio"
+                  name="bikes trails"
+                  onChange={changeBike}
+                  checked={cheakeBike}
+                />
+                <span className="radioTitle">Bikes Trails</span>
+              </label>
+              <label>
+                <input
+                  className="radioInput"
+                  type="radio"
+                  name="water experience"
+                  onChange={changeWater}
+                  checked={cheakeWater}
+                />
+                <span className="radioTitle">Water Experience</span>
+              </label>
+              <label>
+                <input
+                  className="radioInput"
+                  type="radio"
+                  name="for the Story"
+                  onChange={changeStory}
+                  checked={cheakeStory}
+                />
+                <span className="radioTitle">To the Story</span>
+              </label>
+            </div>
+            {/* <AddInput
           type="text"
           placeholder="Add img"
           onChange={newImg}
           value={theImg}
         /> */}
-        <AddInput
-          type="file"
-          accept="image/*"
-          placeholder="Add img"
-          onChange={newImgFile}
-        />
-        <textarea
-          placeholder="About The Place"
-          rows="6"
-          cols="40"
-          value={placeAbout}
-          onChange={newAbout}
-        />
-        {error && { goodImg }}
-        <Button type="submit">submit</Button>
-        {errorMessage}
-      </form>
-      <DemoCard background={theImgFile} title={placeName} />
-    </AddForm>
+            <AddInput
+              type="file"
+              accept="image/*"
+              placeholder="Add img"
+              onChange={newImgFile}
+            />
+            <textarea
+              placeholder="About The Place"
+              rows="6"
+              cols="40"
+              value={placeAbout}
+              onChange={newAbout}
+            />
+            {error && { goodImg }}
+            <Button type="submit">submit</Button>
+            {errorMessage}
+          </form>
+          <DemoCard background={theImgFile} title={placeName} />
+        </AddForm>
+      )}
+    </>
   );
 }
