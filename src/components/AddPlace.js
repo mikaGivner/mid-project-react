@@ -1,12 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
+
 import { AddForm, AddSelectStyle, AddInput, AddTitles } from "../style";
 import "./style.css";
 import { Button } from "../style/Submit";
-import CardPlace from "./Card-place";
+
+import DemoCard from "./Demo-Card";
 export default function AddPlace() {
   const [placeName, setPlaceName] = useState("");
-  const [theImg, setTheImg] = useState("");
   const [theImgFile, setTheImgFile] = useState("");
   const [placeAbout, setPlaceAbout] = useState("");
   const [area, setArea] = useState("");
@@ -25,10 +26,10 @@ export default function AddPlace() {
   const [story, setStory] = useState(false);
   const [cheakeStory, setCheakeStory] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  let space = false;
+
+  const [error, setError] = useState(false);
   function newPlace(e) {
     if (e.target.value.slice[-1] === " ") {
-      space = true;
     }
     if (placeName.length === 13 || placeName.length === 26) {
       setPlaceName(`${e.target.value} `);
@@ -50,7 +51,7 @@ export default function AddPlace() {
 
     reader.readAsDataURL(file);
   }
-  //////////////////////////
+
   function newAbout(e) {
     setPlaceAbout(e.target.value);
   }
@@ -120,8 +121,9 @@ export default function AddPlace() {
       setCheakeStory("");
     }
   }
-
+  const [goodImg, setGoodImg] = useState("");
   function AddPlaceAPI(e) {
+    setError(false);
     e.preventDefault();
     // console.log(theImgFile);
     setErrorMessage("");
@@ -160,10 +162,16 @@ export default function AddPlace() {
         about: `${placeAbout}`,
         usersSave: ["1"],
       };
-      axios.post(
-        `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company`,
-        newPlaceAdd
-      );
+      try {
+        axios.post(
+          `https://63fcb7158ef914c5559dbaa5.mockapi.io/api/sa1/company`,
+          newPlaceAdd
+        );
+      } catch (err) {
+        console.log("the image adress is to long", err);
+        setGoodImg("This image is not good, please try again");
+        setError(true);
+      }
     }
   }
   return (
@@ -280,18 +288,11 @@ export default function AddPlace() {
           value={placeAbout}
           onChange={newAbout}
         />
+        {error && { goodImg }}
         <Button type="submit">submit</Button>
         {errorMessage}
       </form>
-      <CardPlace
-        background={theImgFile}
-        title={placeName}
-        LearnMore={() => {}}
-        deleteSave={() => {}}
-        saveOption={true}
-        SaveItem={() => {}}
-        isSaved={false}
-      />
+      <DemoCard background={theImgFile} title={placeName} />
     </AddForm>
   );
 }
