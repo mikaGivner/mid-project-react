@@ -9,19 +9,32 @@ import RootLayout from "./components/Root";
 import AboutPage from "./components/AboutPage";
 import DeletePlaces from "./components/DeletePlaces";
 import AddAdmins from "./components/AddAdmins";
+import ErrorPage from "./components/ErrorPage";
 function App() {
+  const userLogIn = localStorage.getItem("logIn");
+  const adminUserLogIn = localStorage.getItem("Admin");
   const router = createBrowserRouter(
     [
       {
         path: "/",
         element: <RootLayout />,
+        errorElement: <ErrorPage />,
         children: [
           { path: "/", element: <Home /> },
           { path: "/AboutPage", element: <AboutPage /> },
           { path: "/Favourites", element: <FavouritesPlaces /> },
-          { path: "/AddPlace", element: <AddPlace /> },
-          { path: "/DeletePlaces", element: <DeletePlaces /> },
-          { path: "/AddAdmins", element: <AddAdmins /> },
+          {
+            path: "/AddPlace",
+            element: userLogIn !== "" ? <AddPlace /> : <ErrorPage />,
+          },
+          {
+            path: "/DeletePlaces",
+            element: adminUserLogIn !== "" ? <DeletePlaces /> : <ErrorPage />,
+          },
+          {
+            path: "/AddAdmins",
+            element: adminUserLogIn !== "" ? <AddAdmins /> : <ErrorPage />,
+          },
         ],
       },
     ],
