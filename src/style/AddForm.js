@@ -12,5 +12,6 @@ export const AddForm = styled.div`
 
   @media (min-width: 700px) {
     padding: 2rem;
+    flex-direction: column;
   }
 `;
