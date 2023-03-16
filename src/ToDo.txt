@@ -1,0 +1,6 @@
+To do list:
+* Read readMe with images and skills.
+* Make the spinner div as a component.
+* DRY-all the select's options, the logo's letters, all the ctrl c & d when i just change content- make as  arrays or objects and build with loops. Make the code shorter.
+* Split the context file to many files with correct names.
+* Split the big style file to many files (as i did with the spinner's classes).
